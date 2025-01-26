@@ -1,0 +1,33 @@
+name: Simple CI Workflow
+
+# Trigger workflow on any push to the repository
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run-code:
+    name: Run Code
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+
+      # Install dependencies (if required)
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt || true
+
+      # Run the Python script
+      - name: Run Script
+        run: |
+          python main.py
